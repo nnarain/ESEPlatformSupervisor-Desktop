@@ -3,6 +3,10 @@
 
 #include <QMainWindow>
 
+#include "packetstream.h"
+
+#include <memory>
+
 namespace Ui {
 class MainWindow;
 }
@@ -15,8 +19,15 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+    void onPingButtonClicked();
+
+    void onPacketRecieved(Packet);
+
 private:
     Ui::MainWindow *ui;
+
+    PacketStream *stream;
 };
 
 #endif // MAINWINDOW_H

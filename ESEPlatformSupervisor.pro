@@ -18,8 +18,14 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    packetstream.cpp \
+    packet.cpp \
+    packetbuilder.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    packetstream.h \
+    packet.h \
+    packetbuilder.h
 
 FORMS    += mainwindow.ui

@@ -12,8 +12,13 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    //
+
     // connect ui components
     connect(ui->bnPing, SIGNAL(clicked()), this, SLOT(onPingButtonClicked()));
+
+    // connect stream callbacks
+    connect(stream, SIGNAL(onPacketRecieved(Packet)), this, SLOT(onPacketRecieved(Packet)));
 
     bool ret = stream->open();
 
@@ -29,6 +34,11 @@ void MainWindow::onPingButtonClicked()
 
     qDebug() << "Sending Ping";
     stream->write(packet);
+}
+
+void MainWindow::onPacketRecieved(Packet packet)
+{
+    ui->pteResponse->appendPlainText(packet.getContents());
 }
 
 MainWindow::~MainWindow()

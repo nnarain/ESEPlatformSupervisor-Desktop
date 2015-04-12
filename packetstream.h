@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QSerialPort>
-#include <QByteArray>
+#include <QBuffer>
 
 #include "packet.h"
 
@@ -29,7 +29,11 @@ public slots:
 private:
     QSerialPort *serial;
 
-    QByteArray recieveBuffer;
+    QBuffer recieveBuffer;
+
+    /* Private Functions */
+
+    void removeProcessedData(QBuffer &buffer, qint64 offset);
 
 };
 

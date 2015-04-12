@@ -18,7 +18,11 @@ public:
 
     QString getCommand();
 
+    QString getContents();
+
 private:
+    Packet(const QString &);
+
     QString contents;
 
     QString &strip(const QString &);

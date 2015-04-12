@@ -22,10 +22,12 @@ public:
 public slots:
     void onPingButtonClicked();
 
+    void onPacketRecieved(Packet);
+
 private:
     Ui::MainWindow *ui;
 
-    std::unique_ptr<PacketStream> stream;
+    PacketStream *stream;
 };
 
 #endif // MAINWINDOW_H

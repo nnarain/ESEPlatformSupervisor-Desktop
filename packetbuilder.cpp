@@ -14,8 +14,6 @@ PacketBuilder::PacketBuilder()
 
 Packet PacketBuilder::build()
 {
-    Packet packet;
-
     QString contents = "";
     contents
             .append("<")
@@ -24,9 +22,7 @@ Packet PacketBuilder::build()
 
     qDebug() << "Built: " << contents;
 
-    packet.contents = contents;
-
-    return packet;
+    return Packet(contents);
 }
 
 void PacketBuilder::setCommand(Packet::Command cmd)

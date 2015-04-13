@@ -12,6 +12,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 
 QT       += core gui
 CONFIG   += qt debug
+CONFIG   += c++11
 
 TARGET = ESEPlatformSupervisor
 TEMPLATE = app

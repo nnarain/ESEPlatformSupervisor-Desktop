@@ -21,10 +21,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // connect stream callbacks
     connect(stream, SIGNAL(onPacketRecieved(Packet)), this, SLOT(onPacketRecieved(Packet)));
-
-    bool ret = stream->open();
-
-    qDebug() << "Stream Opened: " << ret;
 }
 
 void MainWindow::onPingButtonClicked()
@@ -53,6 +49,18 @@ void MainWindow::onSyncButtonClicked()
 
     qDebug() << "Syncing with Platform";
     stream->write(packet);
+}
+
+void MainWindow::onOpenButtonClicked()
+{
+    QString portName = ui->etSerialPort->text();
+
+    qDebug() << "Opening Port: " << portName;
+
+    bool ret = stream->open(portName);
+
+    qDebug() << "Stream Opened: " << ret;
+
 }
 
 void MainWindow::onPacketRecieved(Packet packet)

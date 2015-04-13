@@ -56,9 +56,9 @@ void PacketStream::onDataRecieved(void)
     }
 }
 
-bool PacketStream::open()
+bool PacketStream::open(QString portName)
 {
-    serial->setPortName("COM6");
+    serial->setPortName(portName);
     serial->setBaudRate(QSerialPort::Baud9600);
     serial->setDataBits(QSerialPort::Data8);
     serial->setStopBits(QSerialPort::OneStop);

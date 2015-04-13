@@ -13,7 +13,7 @@ class PacketStream : public QObject
 public:
     explicit PacketStream(QObject *parent = 0);
 
-    bool open();
+    bool open(QString portName);
     void close();
 
     void write(const Packet &packet);

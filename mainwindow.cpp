@@ -16,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // connect ui components
     connect(ui->bnPing, SIGNAL(clicked()), this, SLOT(onPingButtonClicked()));
+    connect(ui->bnClear, SIGNAL(clicked()), this, SLOT(onClearButtonClicked()));
+    connect(ui->bnSync, SIGNAL(clicked()), this, SLOT(onSyncButtonClicked()));
 
     // connect stream callbacks
     connect(stream, SIGNAL(onPacketRecieved(Packet)), this, SLOT(onPacketRecieved(Packet)));
@@ -33,6 +35,23 @@ void MainWindow::onPingButtonClicked()
     Packet packet = builder.build();
 
     qDebug() << "Sending Ping";
+    stream->write(packet);
+}
+
+void MainWindow::onClearButtonClicked()
+{
+    // clear the display
+    ui->pteResponse->setPlainText("");
+}
+
+void MainWindow::onSyncButtonClicked()
+{
+    PacketBuilder builder;
+    builder.setCommand(Packet::Command::SYNC);
+
+    Packet packet = builder.build();
+
+    qDebug() << "Syncing with Platform";
     stream->write(packet);
 }
 

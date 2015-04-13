@@ -13,7 +13,8 @@ public:
     //! Packet Commands
     enum class Command
     {
-        PING = 0
+        PING = 0,
+        SYNC = 1
     };
 
     QString getCommand();

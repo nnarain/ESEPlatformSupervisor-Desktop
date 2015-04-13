@@ -31,6 +31,8 @@ private:
     Ui::MainWindow *ui;
 
     PacketStream *stream;
+
+    void setComponentDefaults();
 };
 
 #endif // MAINWINDOW_H

@@ -3,6 +3,7 @@
 
 #include "packetbuilder.h"
 
+#include <QSerialPortInfo>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -13,11 +14,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     //
+    setComponentDefaults();
 
     // connect ui components
     connect(ui->bnPing, SIGNAL(clicked()), this, SLOT(onPingButtonClicked()));
     connect(ui->bnClear, SIGNAL(clicked()), this, SLOT(onClearButtonClicked()));
     connect(ui->bnSync, SIGNAL(clicked()), this, SLOT(onSyncButtonClicked()));
+    connect(ui->bnOpen, SIGNAL(clicked()), this, SLOT(onOpenButtonClicked()));
 
     // connect stream callbacks
     connect(stream, SIGNAL(onPacketRecieved(Packet)), this, SLOT(onPacketRecieved(Packet)));
@@ -53,7 +56,7 @@ void MainWindow::onSyncButtonClicked()
 
 void MainWindow::onOpenButtonClicked()
 {
-    QString portName = ui->etSerialPort->text();
+    QString portName = ui->cbPortName->currentText();
 
     qDebug() << "Opening Port: " << portName;
 
@@ -66,6 +69,15 @@ void MainWindow::onOpenButtonClicked()
 void MainWindow::onPacketRecieved(Packet packet)
 {
     ui->pteResponse->appendPlainText(packet.getContents());
+}
+
+void MainWindow::setComponentDefaults()
+{
+    // add port names to combo box
+    // fill port names
+    foreach(QSerialPortInfo info, QSerialPortInfo::availablePorts()){
+        ui->cbPortName->addItem(info.portName());
+    }
 }
 
 MainWindow::~MainWindow()

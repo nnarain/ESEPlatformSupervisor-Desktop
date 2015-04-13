@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->bnClear, SIGNAL(clicked()), this, SLOT(onClearButtonClicked()));
     connect(ui->bnSync, SIGNAL(clicked()), this, SLOT(onSyncButtonClicked()));
     connect(ui->bnOpen, SIGNAL(clicked()), this, SLOT(onOpenButtonClicked()));
+    connect(ui->bnCameraUpdate, SIGNAL(clicked()), this, SLOT(onUpdateCameraButtonClicked()));
 
     // connect stream callbacks
     connect(stream, SIGNAL(onPacketRecieved(Packet)), this, SLOT(onPacketRecieved(Packet)));
@@ -75,6 +76,18 @@ void MainWindow::onOpenButtonClicked()
 void MainWindow::onPacketRecieved(Packet packet)
 {
     ui->pteResponse->appendPlainText(packet.getContents());
+}
+
+void MainWindow::onUpdateCameraButtonClicked()
+{
+    PacketBuilder builder;
+    builder
+            .setCommand(Packet::Command::SERVO)
+            .addArgument(ui->etServoPosition->text().toInt());
+
+    Packet packet = builder.build();
+
+    stream->write(packet);
 }
 
 void MainWindow::setComponentDefaults()

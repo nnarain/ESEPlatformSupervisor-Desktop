@@ -24,6 +24,7 @@ public slots:
     void onClearButtonClicked();
     void onSyncButtonClicked();
     void onOpenButtonClicked();
+    void onUpdateCameraButtonClicked();
 
     void onPacketRecieved(Packet);
 

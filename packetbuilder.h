@@ -13,7 +13,9 @@ public:
 
     Packet build();
 
-    void setCommand(Packet::Command cmd);
+    PacketBuilder & setCommand(Packet::Command cmd);
+    PacketBuilder & addArgument(int v);
+
 
 private:
     //! Packet Command

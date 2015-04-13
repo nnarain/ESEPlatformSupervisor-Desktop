@@ -5,9 +5,10 @@
 //
 static const QString commandStrings[] =
 {
-    "P", // Ping
-    "Z", // Sync
-    "S"  // Servo
+    "P",  // Ping
+    "Z",  // Sync
+    "S",  // Servo
+    "ST", // Stepper
 };
 
 PacketBuilder::PacketBuilder()
@@ -44,4 +45,10 @@ PacketBuilder & PacketBuilder::addArgument(int v)
 {
     arguments.append(QString::number(v));
     return *this;
+}
+
+void PacketBuilder::reset(void)
+{
+    command = "";
+    arguments.clear();
 }

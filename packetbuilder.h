@@ -16,6 +16,8 @@ public:
     PacketBuilder & setCommand(Packet::Command cmd);
     PacketBuilder & addArgument(int v);
 
+    void reset(void);
+
 
 private:
     //! Packet Command

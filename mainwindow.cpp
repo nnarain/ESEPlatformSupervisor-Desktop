@@ -68,7 +68,6 @@ void MainWindow::onOpenButtonClicked()
     else
     {
         ui->statusBar->showMessage("Failed to connect to port: " + portName + ". " + stream->getErrorString());
-        //qDebug() << stream->getErrorString();
     }
 
 }
@@ -85,9 +84,18 @@ void MainWindow::onUpdateCameraButtonClicked()
             .setCommand(Packet::Command::SERVO)
             .addArgument(ui->etServoPosition->text().toInt());
 
-    Packet packet = builder.build();
+    Packet servoPacket = builder.build();
 
-    stream->write(packet);
+    builder.reset();
+
+    builder
+            .setCommand(Packet::Command::STEP)
+            .addArgument(ui->etStepperPosition->text().toInt());
+
+    Packet stepPacket = builder.build();
+
+    stream->write(servoPacket);
+    stream->write(stepPacket);
 }
 
 void MainWindow::setComponentDefaults()

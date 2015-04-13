@@ -18,6 +18,8 @@ public:
 
     void write(const Packet &packet);
 
+    QString getErrorString(void) const;
+
 signals:
 
     void onPacketRecieved(Packet);

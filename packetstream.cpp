@@ -73,6 +73,11 @@ void PacketStream::close()
     serial->close();
 }
 
+QString PacketStream::getErrorString(void) const
+{
+    return serial->errorString();
+}
+
 void PacketStream::removeProcessedData(QBuffer &buffer, qint64 offset)
 {
     qint64 remaining = buffer.size() - offset;

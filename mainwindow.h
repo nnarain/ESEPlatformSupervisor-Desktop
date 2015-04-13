@@ -24,6 +24,7 @@ public slots:
     void onClearButtonClicked();
     void onSyncButtonClicked();
     void onOpenButtonClicked();
+    void onUpdateCameraButtonClicked();
 
     void onPacketRecieved(Packet);
 
@@ -31,6 +32,8 @@ private:
     Ui::MainWindow *ui;
 
     PacketStream *stream;
+
+    void setComponentDefaults();
 };
 
 #endif // MAINWINDOW_H

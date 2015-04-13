@@ -21,6 +21,8 @@ public:
 
 public slots:
     void onPingButtonClicked();
+    void onClearButtonClicked();
+    void onSyncButtonClicked();
 
     void onPacketRecieved(Packet);
 

@@ -5,7 +5,8 @@
 //
 static const QString commandStrings[] =
 {
-    "P"
+    "P", // Ping
+    "Z", // Sync
 };
 
 PacketBuilder::PacketBuilder()

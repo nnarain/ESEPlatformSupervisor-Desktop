@@ -62,12 +62,12 @@ void MainWindow::onOpenButtonClicked()
 
     if(stream->open(portName))
     {
-        ui->statusBar->showMessage("Port: " + portName + " Ready");
+        ui->statusBar->showMessage("Port: " + portName + ". Ready");
     }
     else
     {
-        ui->statusBar->showMessage("Failed to connect to port: " + portName);
-        qDebug() << stream->getErrorString();
+        ui->statusBar->showMessage("Failed to connect to port: " + portName + ". " + stream->getErrorString());
+        //qDebug() << stream->getErrorString();
     }
 
 }

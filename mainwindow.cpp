@@ -60,9 +60,15 @@ void MainWindow::onOpenButtonClicked()
 
     qDebug() << "Opening Port: " << portName;
 
-    bool ret = stream->open(portName);
-
-    qDebug() << "Stream Opened: " << ret;
+    if(stream->open(portName))
+    {
+        ui->statusBar->showMessage("Port: " + portName + " Ready");
+    }
+    else
+    {
+        ui->statusBar->showMessage("Failed to connect to port: " + portName);
+        qDebug() << stream->getErrorString();
+    }
 
 }
 

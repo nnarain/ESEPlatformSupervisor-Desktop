@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //
     setComponentDefaults();
+    sendButtonsEnabled(false);
 
     // connect ui components
     connect(ui->bnPing, SIGNAL(clicked()), this, SLOT(onPingButtonClicked()));
@@ -57,17 +58,37 @@ void MainWindow::onSyncButtonClicked()
 
 void MainWindow::onOpenButtonClicked()
 {
+    static bool portOpened = false;
+
     QString portName = ui->cbPortName->currentText();
 
-    qDebug() << "Opening Port: " << portName;
-
-    if(stream->open(portName))
+    if(!portOpened)
     {
-        ui->statusBar->showMessage("Port: " + portName + ". Ready");
+        qDebug() << "Opening Port: " << portName;
+
+        if(stream->open(portName))
+        {
+            ui->statusBar->showMessage("Port: " + portName + ". Ready");
+            sendButtonsEnabled(true);
+            ui->bnOpen->setText("Close");
+
+            portOpened = true;
+        }
+        else
+        {
+            ui->statusBar->showMessage("Failed to connect to port: " + portName + ". " + stream->getErrorString());
+        }
     }
     else
     {
-        ui->statusBar->showMessage("Failed to connect to port: " + portName + ". " + stream->getErrorString());
+        qDebug() << "Closing Port: " << portName;
+
+        stream->close();
+        ui->bnOpen->setText("Open");
+
+        sendButtonsEnabled(false);
+
+        portOpened = true;
     }
 
 }
@@ -105,6 +126,15 @@ void MainWindow::setComponentDefaults()
     foreach(QSerialPortInfo info, QSerialPortInfo::availablePorts()){
         ui->cbPortName->addItem(info.portName());
     }
+}
+
+void MainWindow::sendButtonsEnabled(bool b)
+{
+    ui->bnCameraUpdate->setEnabled(b);
+    ui->bnMotorUpdate->setEnabled(b);
+    ui->bnEcho->setEnabled(b);
+    ui->bnPing->setEnabled(b);
+    ui->bnSync->setEnabled(b);
 }
 
 MainWindow::~MainWindow()

@@ -34,6 +34,7 @@ private:
     PacketStream *stream;
 
     void setComponentDefaults();
+    void sendButtonsEnabled(bool b);
 };
 
 #endif // MAINWINDOW_H

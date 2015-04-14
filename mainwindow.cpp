@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->bnPing, SIGNAL(clicked()), this, SLOT(onPingButtonClicked()));
     connect(ui->bnClear, SIGNAL(clicked()), this, SLOT(onClearButtonClicked()));
     connect(ui->bnSync, SIGNAL(clicked()), this, SLOT(onSyncButtonClicked()));
+    connect(ui->bnEcho, SIGNAL(clicked()), this, SLOT(onEchoButtonClicked()));
     connect(ui->bnOpen, SIGNAL(clicked()), this, SLOT(onOpenButtonClicked()));
     connect(ui->bnCameraUpdate, SIGNAL(clicked()), this, SLOT(onUpdateCameraButtonClicked()));
 
@@ -53,6 +54,19 @@ void MainWindow::onSyncButtonClicked()
     Packet packet = builder.build();
 
     qDebug() << "Syncing with Platform";
+    stream->write(packet);
+}
+
+void MainWindow::onEchoButtonClicked()
+{
+    PacketBuilder builder;
+
+    builder
+            .setCommand(Packet::Command::ECHO)
+            .addArgument(ui->etEcho->text());
+
+    Packet packet = builder.build();
+
     stream->write(packet);
 }
 

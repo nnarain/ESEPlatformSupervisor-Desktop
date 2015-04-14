@@ -297,7 +297,7 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
-       <widget class="QLineEdit" name="lineEdit"/>
+       <widget class="QLineEdit" name="etEcho"/>
       </item>
       <item>
        <widget class="QPushButton" name="bnEcho">

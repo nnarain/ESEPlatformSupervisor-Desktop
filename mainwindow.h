@@ -23,6 +23,7 @@ public slots:
     void onPingButtonClicked();
     void onClearButtonClicked();
     void onSyncButtonClicked();
+    void onEchoButtonClicked();
     void onOpenButtonClicked();
     void onUpdateCameraButtonClicked();
 

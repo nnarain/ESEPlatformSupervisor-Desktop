@@ -25,6 +25,7 @@ void PacketStream::onDataRecieved(void)
 
     // read and buffer the incoming data
     QByteArray data = serial->readAll();
+    qDebug() << "Recieved: " << data;
     recieveBuffer.write(data);
 
     int size = data.size();
@@ -40,18 +41,25 @@ void PacketStream::onDataRecieved(void)
         }
         else if(data[i] == PACKET_END)
         {
-            hasStart = false;
+            if(hasStart)
+            {
+                hasStart = false;
 
-            // seek to the beginning of the buffer and read the packet
-            recieveBuffer.reset();
-            QByteArray packetData = recieveBuffer.read(count);
+                // seek to the beginning of the buffer and read the packet
+                recieveBuffer.reset();
+                QByteArray packetData = recieveBuffer.read(count);
 
-            // remove the packet data from the buffer
-            removeProcessedData(recieveBuffer, count);
+                // remove the packet data from the buffer
+                removeProcessedData(recieveBuffer, count);
 
-            // create a packet from packet data
-            emit onPacketRecieved(Packet(QString(packetData)));
-            count = 0;
+                // create a packet from packet data
+                emit onPacketRecieved(Packet(QString(packetData)));
+                count = 0;
+            }
+            else
+            {
+                qDebug() << "Error";
+            }
         }
     }
 }

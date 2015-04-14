@@ -15,6 +15,7 @@ public:
 
     PacketBuilder & setCommand(Packet::Command cmd);
     PacketBuilder & addArgument(int v);
+    PacketBuilder & addArgument(const QString &);
 
     void reset(void);
 

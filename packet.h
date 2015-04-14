@@ -22,7 +22,7 @@ public:
 
     QString getCommand();
 
-    QString getContents();
+    QString getContents() const;
 
 private:
     Packet(const QString &);

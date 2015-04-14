@@ -102,7 +102,7 @@ void MainWindow::onOpenButtonClicked()
 
         sendButtonsEnabled(false);
 
-        portOpened = true;
+        portOpened = false;
     }
 
 }
@@ -140,6 +140,12 @@ void MainWindow::setComponentDefaults()
     foreach(QSerialPortInfo info, QSerialPortInfo::availablePorts()){
         ui->cbPortName->addItem(info.portName());
     }
+
+    //
+    ui->etServoPosition->setText("30");
+    ui->etStepperPosition->setText("90");
+    ui->etMotorSpeed->setText("10");
+    ui->etEcho->setText("Hello");
 }
 
 void MainWindow::sendButtonsEnabled(bool b)

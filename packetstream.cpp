@@ -111,7 +111,7 @@ void PacketStream::removeProcessedData(QBuffer &buffer, qint64 offset)
 void PacketStream::write(const Packet &packet)
 {
     QByteArray data;
-    data.append(packet.contents);
+    data.append(packet.getContents());
 
     qDebug() << "Stream Writing: " << data;
 

@@ -13,7 +13,7 @@ QString Packet::getCommand()
     return str.split(" ").at(0);
 }
 
-QString Packet::getContents()
+QString Packet::getContents() const
 {
     return contents;
 }

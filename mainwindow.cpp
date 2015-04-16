@@ -140,7 +140,6 @@ void MainWindow::onUpdateCameraButtonClicked()
 void MainWindow::setComponentDefaults()
 {
     // add port names to combo box
-    // fill port names
     foreach(QSerialPortInfo info, QSerialPortInfo::availablePorts()){
         ui->cbPortName->addItem(info.portName());
     }
@@ -150,6 +149,9 @@ void MainWindow::setComponentDefaults()
     ui->etStepperPosition->setText("90");
     ui->etMotorSpeed->setText("10");
     ui->etEcho->setText("Hello");
+
+    ui->rbMotorLeftOff->setChecked(true);
+    ui->rbMotorRightOff->setChecked(true);
 }
 
 void MainWindow::sendButtonsEnabled(bool b)

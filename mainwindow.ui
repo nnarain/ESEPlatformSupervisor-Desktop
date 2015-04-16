@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>642</width>
-    <height>475</height>
+    <height>530</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -101,7 +101,7 @@
       <x>10</x>
       <y>140</y>
       <width>221</width>
-      <height>271</height>
+      <height>341</height>
      </rect>
     </property>
     <property name="title">
@@ -146,7 +146,7 @@
        <x>10</x>
        <y>60</y>
        <width>201</width>
-       <height>81</height>
+       <height>111</height>
       </rect>
      </property>
      <property name="title">
@@ -158,10 +158,17 @@
         <x>10</x>
         <y>20</y>
         <width>161</width>
-        <height>52</height>
+        <height>81</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QRadioButton" name="rbMotorLeftOff">
+         <property name="text">
+          <string>Left Off</string>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QRadioButton" name="rbMotorLeftForward">
          <property name="text">
@@ -183,9 +190,9 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>150</y>
+       <y>190</y>
        <width>201</width>
-       <height>81</height>
+       <height>111</height>
       </rect>
      </property>
      <property name="title">
@@ -197,10 +204,17 @@
         <x>10</x>
         <y>20</y>
         <width>160</width>
-        <height>52</height>
+        <height>81</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QRadioButton" name="rbMotorRightOff">
+         <property name="text">
+          <string>Right Off</string>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QRadioButton" name="rbMotorRightForward">
          <property name="text">
@@ -222,7 +236,7 @@
      <property name="geometry">
       <rect>
        <x>70</x>
-       <y>240</y>
+       <y>310</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -339,7 +353,7 @@
     <property name="geometry">
      <rect>
       <x>270</x>
-      <y>360</y>
+      <y>390</y>
       <width>361</width>
       <height>61</height>
      </rect>
@@ -381,6 +395,13 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <addaction name="actionSerial_Settings"/>
+   </widget>
+   <addaction name="menuSettings"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -391,6 +412,11 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionSerial_Settings">
+   <property name="text">
+    <string>Serial Settings</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

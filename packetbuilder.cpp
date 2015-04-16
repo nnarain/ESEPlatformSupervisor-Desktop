@@ -12,7 +12,8 @@ static const QString commandStrings[] =
     "ST", // Stepper
 };
 
-PacketBuilder::PacketBuilder()
+PacketBuilder::PacketBuilder() :
+    command("")
 {
 }
 

@@ -26,6 +26,7 @@ public slots:
     void onEchoButtonClicked();
     void onOpenButtonClicked();
     void onUpdateCameraButtonClicked();
+    void onUpdateMotorButtonClicked();
 
     void onPacketRecieved(Packet);
 

@@ -10,6 +10,8 @@ static const QString commandStrings[] =
     "Z",  // Sync
     "S",  // Servo
     "ST", // Stepper
+    "MS", // Motor Speed
+    "MD", // Motor Direction
 };
 
 PacketBuilder::PacketBuilder() :
@@ -19,6 +21,8 @@ PacketBuilder::PacketBuilder() :
 
 Packet PacketBuilder::build()
 {
+    // TODO: check if the command string is valid
+
     QString contents = "";
     contents
             .append("<")

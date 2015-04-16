@@ -22,12 +22,13 @@ MainWindow::MainWindow(QWidget *parent) :
     sendButtonsEnabled(false);
 
     // connect ui components
-    connect(ui->bnPing, SIGNAL(clicked()), this, SLOT(onPingButtonClicked()));
-    connect(ui->bnClear, SIGNAL(clicked()), this, SLOT(onClearButtonClicked()));
-    connect(ui->bnSync, SIGNAL(clicked()), this, SLOT(onSyncButtonClicked()));
-    connect(ui->bnEcho, SIGNAL(clicked()), this, SLOT(onEchoButtonClicked()));
-    connect(ui->bnOpen, SIGNAL(clicked()), this, SLOT(onOpenButtonClicked()));
+    connect(ui->bnPing,         SIGNAL(clicked()), this, SLOT(onPingButtonClicked()));
+    connect(ui->bnClear,        SIGNAL(clicked()), this, SLOT(onClearButtonClicked()));
+    connect(ui->bnSync,         SIGNAL(clicked()), this, SLOT(onSyncButtonClicked()));
+    connect(ui->bnEcho,         SIGNAL(clicked()), this, SLOT(onEchoButtonClicked()));
+    connect(ui->bnOpen,         SIGNAL(clicked()), this, SLOT(onOpenButtonClicked()));
     connect(ui->bnCameraUpdate, SIGNAL(clicked()), this, SLOT(onUpdateCameraButtonClicked()));
+    connect(ui->bnMotorUpdate,  SIGNAL(clicked()), this, SLOT(onUpdateMotorButtonClicked()));
 
     // connect stream callbacks
     connect(stream, SIGNAL(onPacketRecieved(Packet)), this, SLOT(onPacketRecieved(Packet)));
@@ -113,6 +114,7 @@ void MainWindow::onOpenButtonClicked()
 
 void MainWindow::onPacketRecieved(Packet packet)
 {
+    qDebug() << "Packet Recieved: " << packet.getContents();
     ui->pteResponse->appendPlainText(packet.getContents());
 }
 
@@ -135,6 +137,70 @@ void MainWindow::onUpdateCameraButtonClicked()
 
     stream->write(servoPacket);
     stream->write(stepPacket);
+}
+
+void MainWindow::onUpdateMotorButtonClicked()
+{
+    PacketBuilder builder;
+    int motorDir;
+
+    // build motor speed packet
+    builder
+            .setCommand(Packet::Command::MTR_SPEED)
+            .addArgument(ui->etMotorSpeed->text().toInt());
+
+    Packet speedPacket = builder.build();
+
+    builder.reset();
+
+    // build left motor packet
+    if(ui->rbMotorLeftOff->isChecked())
+    {
+        motorDir = 0;
+    }
+    else if(ui->rbMotorLeftForward->isChecked())
+    {
+        motorDir = 1;
+    }
+    else
+    {
+        motorDir = 2;
+    }
+
+    builder
+            .setCommand(Packet::Command::MTR_DIR)
+            .addArgument(0)
+            .addArgument(motorDir);
+
+    Packet mtrLPacket = builder.build();
+
+    builder.reset();
+
+    // build right motor packet
+    if(ui->rbMotorRightOff->isChecked())
+    {
+        motorDir = 0;
+    }
+    else if(ui->rbMotorRightForward->isChecked())
+    {
+        motorDir = 1;
+    }
+    else
+    {
+        motorDir = 2;
+    }
+
+    builder
+            .setCommand(Packet::Command::MTR_DIR)
+            .addArgument(1)
+            .addArgument(motorDir);
+
+    Packet mtrRPacket = builder.build();
+
+    // write packets to the stream
+    stream->write(speedPacket);
+    stream->write(mtrLPacket);
+    stream->write(mtrRPacket);
 }
 
 void MainWindow::setComponentDefaults()

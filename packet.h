@@ -26,7 +26,9 @@ public:
         ECHO,
         SYNC,
         SERVO,
-        STEP
+        STEP,
+        MTR_SPEED,
+        MTR_DIR
     };
 
     /**

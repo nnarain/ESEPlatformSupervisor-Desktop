@@ -34,7 +34,7 @@ public:
     /**
         @return the command this packet contains
     */
-    QString getCommand();
+    Packet::Command getCommand();
 
     /**
         @return the packet string

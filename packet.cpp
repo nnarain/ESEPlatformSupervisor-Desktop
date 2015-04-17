@@ -7,10 +7,19 @@ Packet::Packet(const QString &content) :
 {
 }
 
-QString Packet::getCommand()
+Packet::Command Packet::getCommand()
 {
-    QString &str = strip(contents);
-    return str.split(" ").at(0);
+    QString &cmd = QString(strip(contents).at(0));
+
+    if(cmd == "P")
+        return Packet::Command::PING;
+    else if(cmd == "E")
+        return Packet::Command::ECHO;
+    else if(cmd == "Z")
+        return Packet::Command::SYNC;
+    else
+        return Packet::Command::SYNC;
+
 }
 
 QString Packet::getContents() const

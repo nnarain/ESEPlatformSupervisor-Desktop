@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 #include "packetstream.h"
+#include "dtmfconsole.h"
 
 #include <memory>
 
@@ -34,6 +35,8 @@ private:
     Ui::MainWindow *ui;
 
     PacketStream *stream;
+
+    DTMFConsole *dtmfConsole;
 
     void setComponentDefaults();
     void sendButtonsEnabled(bool b);

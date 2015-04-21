@@ -80,10 +80,15 @@ void DTMFConsole::onOpenOutputButtonClicked()
 
 void DTMFConsole::onSendSampleButtonClicked()
 {
-    float * buffer = &inputSamples[0];
     int size = inputSamples.size();
 
-    // call dtmf function
+    if(size > 0)
+    {
+        float * buffer = &inputSamples[0];
+
+        // call dtmf function
+
+    }
 }
 
 void DTMFConsole::setStream(PacketStream *stream)

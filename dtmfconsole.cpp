@@ -64,17 +64,16 @@ void DTMFConsole::onBrowseOutputButtonClicked()
 void DTMFConsole::onOpenOutputButtonClicked()
 {
     QString filename = ui->etOutputFileName->text();
+
+    if(filename == "")
+        filename = ".";
+
     QFile file(filename);
 
-    qDebug() << filename;
+    QDir directory = QFileInfo(file).absoluteDir();
+    QString directoryPath = directory.absolutePath();
 
-    if(filename != "")
-    {
-        QDir directory = QFileInfo(file).absoluteDir();
-        QString directoryPath = directory.absolutePath();
-
-        QDesktopServices::openUrl(QUrl("file:///" + directoryPath));
-    }
+    QDesktopServices::openUrl(QUrl("file:///" + directoryPath));
 
 }
 

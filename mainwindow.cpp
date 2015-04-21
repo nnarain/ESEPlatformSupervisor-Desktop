@@ -13,6 +13,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
+    dtmfConsole(new DTMFConsole(this)),
     stream(new PacketStream(this))
 {
     ui->setupUi(this);
@@ -29,6 +30,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->bnOpen,         SIGNAL(clicked()), this, SLOT(onOpenButtonClicked()));
     connect(ui->bnCameraUpdate, SIGNAL(clicked()), this, SLOT(onUpdateCameraButtonClicked()));
     connect(ui->bnMotorUpdate,  SIGNAL(clicked()), this, SLOT(onUpdateMotorButtonClicked()));
+
+    //
+    dtmfConsole->setStream(stream);
+
+    // connect menu items
+    connect(ui->actionConsole, SIGNAL(triggered()), dtmfConsole, SLOT(show()));
 
     // connect stream callbacks
     connect(stream, SIGNAL(onPacketRecieved(Packet)), this, SLOT(onPacketRecieved(Packet)));
@@ -232,5 +239,8 @@ void MainWindow::sendButtonsEnabled(bool b)
 MainWindow::~MainWindow()
 {
     stream->close();
+    delete stream;
+
+    delete dtmfConsole;
     delete ui;
 }

@@ -401,7 +401,14 @@
     </property>
     <addaction name="actionSerial_Settings"/>
    </widget>
+   <widget class="QMenu" name="menuDTMF">
+    <property name="title">
+     <string>DSP</string>
+    </property>
+    <addaction name="actionConsole"/>
+   </widget>
    <addaction name="menuSettings"/>
+   <addaction name="menuDTMF"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -415,6 +422,16 @@
   <action name="actionSerial_Settings">
    <property name="text">
     <string>Serial Settings</string>
+   </property>
+  </action>
+  <action name="actionDTMFConsole">
+   <property name="text">
+    <string>DTMF Console</string>
+   </property>
+  </action>
+  <action name="actionConsole">
+   <property name="text">
+    <string>Console</string>
    </property>
   </action>
  </widget>

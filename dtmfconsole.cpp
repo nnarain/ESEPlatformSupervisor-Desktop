@@ -1,8 +1,15 @@
+/**
+    @author Natesh Narain
+*/
+
 #include "dtmfconsole.h"
 #include "ui_dtmfconsole.h"
 
 #include <QFileDialog>
 #include <QFile>
+#include <QDir>
+#include <QFileInfo>
+#include <QDesktopServices>
 #include <QDebug>
 
 DTMFConsole::DTMFConsole(QWidget *parent) :
@@ -11,13 +18,19 @@ DTMFConsole::DTMFConsole(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //
-    connect(ui->bnLoadInput, SIGNAL(clicked()),  this, SLOT(onLoadInputButtonClicked()));
+    // connect components
+    connect(ui->bnLoadInput,        SIGNAL(clicked()),  this, SLOT(onLoadInputButtonClicked()));
+    connect(ui->bnBrowseOutput,     SIGNAL(clicked()),  this, SLOT(onBrowseOutputButtonClicked()));
+    connect(ui->bnOpenOutputFolder, SIGNAL(clicked()),  this, SLOT(onOpenOutputButtonClicked()));
+    connect(ui->bnSendSamples,      SIGNAL(clicked()),  this, SLOT(onSendSampleButtonClicked()));
 }
 
 void DTMFConsole::onLoadInputButtonClicked()
 {
-    QString inputPath = browseFiles();
+    QString inputPath = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr(""));
+
+    ui->etInputFileName->setText(inputPath);
+
     QFile inputFile(inputPath);
 
     if(inputFile.exists())
@@ -29,7 +42,7 @@ void DTMFConsole::onLoadInputButtonClicked()
 
         inputSamples.clear();
 
-        // iterate over each line
+        // iterate over each line and get the float values for the input sequence
         for(QString line : content.split("\n"))
         {
             float value = line.toFloat();
@@ -42,9 +55,35 @@ void DTMFConsole::onLoadInputButtonClicked()
     }
 }
 
-QString DTMFConsole::browseFiles()
+void DTMFConsole::onBrowseOutputButtonClicked()
 {
-    return QFileDialog::getOpenFileName(this, tr("Open File"), "", tr(""));
+    QString outputPath = QFileDialog::getSaveFileName(this, tr("Save File"), "", tr(""));
+    ui->etOutputFileName->setText(outputPath);
+}
+
+void DTMFConsole::onOpenOutputButtonClicked()
+{
+    QString filename = ui->etOutputFileName->text();
+    QFile file(filename);
+
+    qDebug() << filename;
+
+    if(filename != "")
+    {
+        QDir directory = QFileInfo(file).absoluteDir();
+        QString directoryPath = directory.absolutePath();
+
+        QDesktopServices::openUrl(QUrl("file:///" + directoryPath));
+    }
+
+}
+
+void DTMFConsole::onSendSampleButtonClicked()
+{
+    float * buffer = &inputSamples[0];
+    int size = inputSamples.size();
+
+    // call dtmf function
 }
 
 void DTMFConsole::setStream(PacketStream *stream)

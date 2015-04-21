@@ -403,7 +403,7 @@
    </widget>
    <widget class="QMenu" name="menuDTMF">
     <property name="title">
-     <string>DTMF</string>
+     <string>DSP</string>
     </property>
     <addaction name="actionConsole"/>
    </widget>

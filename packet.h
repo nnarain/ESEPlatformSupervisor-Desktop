@@ -28,7 +28,8 @@ public:
         SERVO,
         STEP,
         MTR_SPEED,
-        MTR_DIR
+        MTR_DIR,
+        DSP
     };
 
     /**

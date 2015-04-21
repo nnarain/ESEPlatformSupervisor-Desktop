@@ -1,3 +1,10 @@
+
+/**
+    Send DTMF Samples to Platform for processing
+
+    @author Natesh Narain
+*/
+
 #ifndef DTMFCONSOLE_H
 #define DTMFCONSOLE_H
 
@@ -23,6 +30,9 @@ public:
 
 public slots:
     void onLoadInputButtonClicked();
+    void onBrowseOutputButtonClicked();
+    void onOpenOutputButtonClicked();
+    void onSendSampleButtonClicked();
 
 private:
     Ui::DTMFConsole *ui;
@@ -30,8 +40,6 @@ private:
     PacketStream *stream;
 
     QVector<float> inputSamples;
-
-    QString browseFiles();
 
 };
 

@@ -29,10 +29,17 @@ public:
     void setStream(PacketStream *stream);
 
 public slots:
+
+    /* UI Events */
+
     void onLoadInputButtonClicked();
     void onBrowseOutputButtonClicked();
     void onOpenOutputButtonClicked();
     void onSendSampleButtonClicked();
+
+    /* Serial Port Events */
+
+    void onDSPPacketReceived(QString args);
 
 private:
     Ui::DTMFConsole *ui;

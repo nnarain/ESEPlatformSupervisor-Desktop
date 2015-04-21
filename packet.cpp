@@ -7,7 +7,7 @@ Packet::Packet(const QString &content) :
 {
 }
 
-Packet::Command Packet::getCommand()
+Packet::Command Packet::getCommand() const
 {
     QString &cmd = QString(strip(contents).at(0));
 
@@ -22,12 +22,22 @@ Packet::Command Packet::getCommand()
 
 }
 
+QString Packet::getArgumentString() const
+{
+    QString args = strip(contents);
+    int firstSpaceIdx = args.indexOf(" ");
+
+    args.remove(0, firstSpaceIdx);
+
+    return args;
+}
+
 QString Packet::getContents() const
 {
     return contents;
 }
 
-QString &Packet::strip(const QString &str)
+QString &Packet::strip(const QString &str) const
 {
     QString s(str);
     return s.remove("<").remove(">");

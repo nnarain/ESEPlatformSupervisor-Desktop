@@ -50,6 +50,10 @@ signals:
     */
     void onPacketRecieved(Packet);
 
+    void onPingPacketReceived();
+    void onEmitPacketReceieved();
+    void onDSPPacketReceieved(QString);
+
 public slots:
 
     /**
@@ -65,6 +69,8 @@ private:
     QBuffer recieveBuffer;
 
     /* Private Functions */
+
+    void emitPacketSignals(const Packet &);
 
     /**
         remove a count of data from the front of the buffer

@@ -35,7 +35,11 @@ public:
     /**
         @return the command this packet contains
     */
-    Packet::Command getCommand();
+    Packet::Command getCommand() const;
+
+    /**
+    */
+    QString getArgumentString() const;
 
     /**
         @return the packet string
@@ -53,7 +57,7 @@ private:
 
     /**
     */
-    QString &strip(const QString &);
+    QString &strip(const QString &) const;
 };
 
 #endif // PACKET_H

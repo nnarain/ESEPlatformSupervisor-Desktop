@@ -38,7 +38,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionConsole, SIGNAL(triggered()), dtmfConsole, SLOT(show()));
 
     // connect stream callbacks
-    connect(stream, SIGNAL(onPacketRecieved(Packet)), this, SLOT(onPacketRecieved(Packet)));
+    connect(stream, SIGNAL(onPacketRecieved(Packet)),      this,        SLOT(onPacketRecieved(Packet)));
+    connect(stream, SIGNAL(onDSPPacketReceieved(QString)), dtmfConsole, SLOT(onDSPPacketReceived(QString)));
 }
 
 void MainWindow::onPingButtonClicked()

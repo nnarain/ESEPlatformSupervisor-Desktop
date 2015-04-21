@@ -55,6 +55,11 @@ void DTMFConsole::onLoadInputButtonClicked()
     }
 }
 
+void DTMFConsole::onDSPPacketReceived(QString args)
+{
+    qDebug() << args;
+}
+
 void DTMFConsole::onBrowseOutputButtonClicked()
 {
     QString outputPath = QFileDialog::getSaveFileName(this, tr("Save File"), "", tr(""));

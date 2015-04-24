@@ -57,7 +57,7 @@ private:
 
     /**
     */
-    QString &strip(const QString &) const;
+    QString strip(const QString &) const;
 };
 
 #endif // PACKET_H

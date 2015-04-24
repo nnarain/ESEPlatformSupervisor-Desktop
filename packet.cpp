@@ -1,6 +1,10 @@
 #include "packet.h"
 
 #include <QStringList>
+#include <QDebug>
+
+#include <iostream>
+#include <string>
 
 Packet::Packet(const QString &content) :
     contents(content)
@@ -37,8 +41,9 @@ QString Packet::getContents() const
     return contents;
 }
 
-QString &Packet::strip(const QString &str) const
+QString Packet::strip(const QString &str) const
 {
     QString s(str);
+    s.remove("<").remove(">");
     return s.remove("<").remove(">");
 }

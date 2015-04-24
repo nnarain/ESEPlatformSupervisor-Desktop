@@ -8,6 +8,7 @@
 #include "packetbuilder.h"
 
 #include <QSerialPortInfo>
+#include <QMessageBox>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -56,13 +57,7 @@ void MainWindow::onClearButtonClicked()
 
 void MainWindow::onSyncButtonClicked()
 {
-    PacketBuilder builder;
-    builder.setCommand(Packet::Command::SYNC);
-
-    Packet packet = builder.build();
-
-    qDebug() << "Syncing with Platform";
-    stream->write(packet);
+    stream->sync();
 }
 
 void MainWindow::onEchoButtonClicked()
@@ -209,6 +204,8 @@ void MainWindow::onUpdateMotorButtonClicked()
 void MainWindow::onPlatformTimeout(void)
 {
     ui->statusBar->showMessage("Platform Timed Out!");
+
+    QMessageBox::critical(this, tr("Platform Host"), tr("The Platform Controller has timed out"), QMessageBox::Ok);
 }
 
 void MainWindow::setComponentDefaults()

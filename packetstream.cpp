@@ -9,7 +9,7 @@
 #define PACKET_START '<'
 #define PACKET_END   '>'
 
-#define TIMEOUT 3000
+#define TIMEOUT 5000
 
 PacketStream::PacketStream(QObject *parent) :
     QObject(parent),
@@ -27,7 +27,7 @@ PacketStream::PacketStream(QObject *parent) :
     // setup watch dog
     connect(watchdogTimer, SIGNAL(timeout()), this, SLOT(onWatchdogTick()));
 
-    watchdogTimer->setInterval(TIMEOUT/4);
+    watchdogTimer->setInterval(500);
 
     // start the watchdog timer
     watchdog.start();
@@ -97,7 +97,6 @@ void PacketStream::write(const Packet &packet)
 void PacketStream::onWatchdogTick(void)
 {
     int current = watchdog.elapsed();
-    int elapsedSinceWrite = current - lastWriteTime;
     int elapsedSinceRead  = current - lastReadTime;
 
     // has the platform timed out?
@@ -105,6 +104,7 @@ void PacketStream::onWatchdogTick(void)
     {
         //signal timeout
         emit watchdogTimeout();
+        watchdogTimer->stop();
     }
     else
     {
@@ -140,6 +140,14 @@ void PacketStream::ping(void)
 {
     PacketBuilder builder;
     builder.setCommand(Packet::Command::PING);
+
+    write(builder.build());
+}
+
+void PacketStream::sync(void)
+{
+    PacketBuilder builder;
+    builder.setCommand(Packet::Command::SYNC);
 
     write(builder.build());
 }

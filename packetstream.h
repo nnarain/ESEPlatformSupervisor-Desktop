@@ -47,6 +47,10 @@ public:
     */
     void ping(void);
 
+    /**
+    */
+    void sync(void);
+
 
     /**
         @return serial port error string

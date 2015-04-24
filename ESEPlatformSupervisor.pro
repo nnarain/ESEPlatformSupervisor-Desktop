@@ -22,11 +22,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     packetstream.cpp \
     packet.cpp \
-    packetbuilder.cpp
+    packetbuilder.cpp \
+    dtmfconsole.cpp
 
 HEADERS  += mainwindow.h \
     packetstream.h \
     packet.h \
-    packetbuilder.h
+    packetbuilder.h \
+    dtmfconsole.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    dtmfconsole.ui

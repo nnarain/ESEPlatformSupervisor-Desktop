@@ -28,13 +28,18 @@ public:
         SERVO,
         STEP,
         MTR_SPEED,
-        MTR_DIR
+        MTR_DIR,
+        DSP
     };
 
     /**
         @return the command this packet contains
     */
-    QString getCommand();
+    Packet::Command getCommand() const;
+
+    /**
+    */
+    QString getArgumentString() const;
 
     /**
         @return the packet string
@@ -52,7 +57,7 @@ private:
 
     /**
     */
-    QString &strip(const QString &);
+    QString &strip(const QString &) const;
 };
 
 #endif // PACKET_H

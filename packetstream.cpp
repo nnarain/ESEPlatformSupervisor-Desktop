@@ -53,7 +53,7 @@ void PacketStream::onDataRecieved(void)
                 removeProcessedData(recieveBuffer, count);
 
                 // create a packet from packet data
-                emit onPacketRecieved(Packet(QString(packetData)));
+                emitPacketSignals(Packet(QString(packetData)));
                 count = 0;
             }
             else
@@ -84,6 +84,25 @@ void PacketStream::close()
 QString PacketStream::getErrorString(void) const
 {
     return serial->errorString();
+}
+
+void PacketStream::emitPacketSignals(const Packet &packet)
+{
+    emit onPacketRecieved(packet);
+
+    Packet::Command cmd = packet.getCommand();
+
+    switch(cmd)
+    {
+    case Packet::Command::PING:
+        emit onPingPacketReceived();
+        break;
+    case Packet::Command::ECHO:
+        break;
+    case Packet::Command::DSP:
+        emit onDSPPacketReceieved(packet.getArgumentString());
+        break;
+    }
 }
 
 void PacketStream::removeProcessedData(QBuffer &buffer, qint64 offset)

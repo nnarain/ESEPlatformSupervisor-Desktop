@@ -12,6 +12,7 @@ static const QString commandStrings[] =
     "ST", // Stepper
     "MS", // Motor Speed
     "MD", // Motor Direction
+    "D"   // DSP Packet
 };
 
 PacketBuilder::PacketBuilder() :

@@ -2,20 +2,35 @@
 
 #include <QByteArray>
 
+#include "packetbuilder.h"
+
 #include <QDebug>
 
 #define PACKET_START '<'
 #define PACKET_END   '>'
 
+#define TIMEOUT 3000
+
 PacketStream::PacketStream(QObject *parent) :
     QObject(parent),
-    serial(new QSerialPort(this))
+    serial(new QSerialPort(this)),
+    watchdogTimer(new QTimer(this)),
+    lastReadTime(0),
+    lastWriteTime(0)
 {
     // open buffer
     recieveBuffer.open(QIODevice::ReadWrite);
 
     // data available slot
     connect(serial, SIGNAL(readyRead()), this, SLOT(onDataRecieved()));
+
+    // setup watch dog
+    connect(watchdogTimer, SIGNAL(timeout()), this, SLOT(onWatchdogTick()));
+
+    watchdogTimer->setInterval(TIMEOUT/4);
+
+    // start the watchdog timer
+    watchdog.start();
 }
 
 void PacketStream::onDataRecieved(void)
@@ -55,6 +70,9 @@ void PacketStream::onDataRecieved(void)
                 // create a packet from packet data
                 emitPacketSignals(Packet(QString(packetData)));
                 count = 0;
+
+                // save the millisecond time for this packet
+                lastReadTime = watchdog.elapsed();
             }
             else
             {
@@ -62,6 +80,37 @@ void PacketStream::onDataRecieved(void)
             }
         }
     }
+}
+
+void PacketStream::write(const Packet &packet)
+{
+    QByteArray data;
+    data.append(packet.getContents());
+
+    qDebug() << "Stream Writing: " << data;
+
+    lastWriteTime = watchdog.elapsed();
+
+    serial->write(data);
+}
+
+void PacketStream::onWatchdogTick(void)
+{
+    int current = watchdog.elapsed();
+    int elapsedSinceWrite = current - lastWriteTime;
+    int elapsedSinceRead  = current - lastReadTime;
+
+    // has the platform timed out?
+    if(elapsedSinceRead > TIMEOUT)
+    {
+        //signal timeout
+        emit watchdogTimeout();
+    }
+    else
+    {
+        ping();
+    }
+
 }
 
 bool PacketStream::open(QString portName)
@@ -73,12 +122,26 @@ bool PacketStream::open(QString portName)
     serial->setParity(QSerialPort::NoParity);
     serial->setFlowControl(QSerialPort::NoFlowControl);
 
-    return serial->open(QIODevice::ReadWrite);
+    bool ret = serial->open(QIODevice::ReadWrite);
+
+    if(ret)
+        watchdogTimer->start();
+
+    return ret;
 }
 
 void PacketStream::close()
 {
     serial->close();
+    watchdogTimer->stop();
+}
+
+void PacketStream::ping(void)
+{
+    PacketBuilder builder;
+    builder.setCommand(Packet::Command::PING);
+
+    write(builder.build());
 }
 
 QString PacketStream::getErrorString(void) const
@@ -127,12 +190,10 @@ void PacketStream::removeProcessedData(QBuffer &buffer, qint64 offset)
     buffer.seek(remaining);
 }
 
-void PacketStream::write(const Packet &packet)
+PacketStream::~PacketStream(void)
 {
-    QByteArray data;
-    data.append(packet.getContents());
-
-    qDebug() << "Stream Writing: " << data;
-
-    serial->write(data);
+    delete serial;
+    delete watchdogTimer;
 }
+
+

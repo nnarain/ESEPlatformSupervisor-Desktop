@@ -8,6 +8,8 @@
 #include <QObject>
 #include <QSerialPort>
 #include <QBuffer>
+#include <QTime>
+#include <QTimer>
 
 #include "packet.h"
 
@@ -19,6 +21,8 @@ class PacketStream : public QObject
     Q_OBJECT
 public:
     explicit PacketStream(QObject *parent = 0);
+
+    ~PacketStream(void);
 
     /**
         Open the stream
@@ -39,6 +43,12 @@ public:
     void write(const Packet &packet);
 
     /**
+        Ping the platform
+    */
+    void ping(void);
+
+
+    /**
         @return serial port error string
     */
     QString getErrorString(void) const;
@@ -54,6 +64,8 @@ signals:
     void onEmitPacketReceieved();
     void onDSPPacketReceieved(QString);
 
+    void watchdogTimeout();
+
 public slots:
 
     /**
@@ -61,12 +73,22 @@ public slots:
     */
     void onDataRecieved(void);
 
+    /**
+    */
+    void onWatchdogTick(void);
+
 private:
     //! serial port
     QSerialPort *serial;
 
     //! buffer for serial data
     QBuffer recieveBuffer;
+
+    //! Watchdog timer
+    QTime watchdog;
+    QTimer *watchdogTimer;
+    int lastWriteTime;
+    int lastReadTime;
 
     /* Private Functions */
 

@@ -40,17 +40,12 @@ MainWindow::MainWindow(QWidget *parent) :
     // connect stream callbacks
     connect(stream, SIGNAL(onPacketRecieved(Packet)),      this,        SLOT(onPacketRecieved(Packet)));
     connect(stream, SIGNAL(onDSPPacketReceieved(QString)), dtmfConsole, SLOT(onDSPPacketReceived(QString)));
+    connect(stream, SIGNAL(watchdogTimeout()),             this,        SLOT(onPlatformTimeout()));
 }
 
 void MainWindow::onPingButtonClicked()
 {
-    PacketBuilder builder;
-    builder.setCommand(Packet::Command::PING);
-
-    Packet packet = builder.build();
-
-    qDebug() << "Sending Ping";
-    stream->write(packet);
+    stream->ping();
 }
 
 void MainWindow::onClearButtonClicked()
@@ -209,6 +204,11 @@ void MainWindow::onUpdateMotorButtonClicked()
     stream->write(speedPacket);
     stream->write(mtrLPacket);
     stream->write(mtrRPacket);
+}
+
+void MainWindow::onPlatformTimeout(void)
+{
+    ui->statusBar->showMessage("Platform Timed Out!");
 }
 
 void MainWindow::setComponentDefaults()

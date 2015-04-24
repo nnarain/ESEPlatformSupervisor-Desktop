@@ -31,6 +31,8 @@ public slots:
 
     void onPacketRecieved(Packet);
 
+    void onPlatformTimeout(void);
+
 private:
     Ui::MainWindow *ui;
 

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 
 #include "packetstream.h"
+#include "dtmfconsole.h"
 
 #include <memory>
 
@@ -23,13 +24,24 @@ public slots:
     void onPingButtonClicked();
     void onClearButtonClicked();
     void onSyncButtonClicked();
+    void onEchoButtonClicked();
+    void onOpenButtonClicked();
+    void onUpdateCameraButtonClicked();
+    void onUpdateMotorButtonClicked();
 
     void onPacketRecieved(Packet);
+
+    void onPlatformTimeout(void);
 
 private:
     Ui::MainWindow *ui;
 
     PacketStream *stream;
+
+    DTMFConsole *dtmfConsole;
+
+    void setComponentDefaults();
+    void sendButtonsEnabled(bool b);
 };
 
 #endif // MAINWINDOW_H

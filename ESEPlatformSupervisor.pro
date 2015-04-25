@@ -12,6 +12,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 
 QT       += core gui
 CONFIG   += qt debug
+CONFIG   += c++11
 
 TARGET = ESEPlatformSupervisor
 TEMPLATE = app
@@ -21,11 +22,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     packetstream.cpp \
     packet.cpp \
-    packetbuilder.cpp
+    packetbuilder.cpp \
+    dtmfconsole.cpp
 
 HEADERS  += mainwindow.h \
     packetstream.h \
     packet.h \
-    packetbuilder.h
+    packetbuilder.h \
+    dtmfconsole.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    dtmfconsole.ui

@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>603</width>
-    <height>475</height>
+    <width>642</width>
+    <height>530</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,7 +22,7 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>191</width>
+      <width>221</width>
       <height>121</height>
      </rect>
     </property>
@@ -34,7 +34,7 @@
       <rect>
        <x>10</x>
        <y>20</y>
-       <width>171</width>
+       <width>201</width>
        <height>31</height>
       </rect>
      </property>
@@ -60,7 +60,7 @@
       <rect>
        <x>10</x>
        <y>50</y>
-       <width>171</width>
+       <width>201</width>
        <height>31</height>
       </rect>
      </property>
@@ -84,7 +84,7 @@
     <widget class="QPushButton" name="bnCameraUpdate">
      <property name="geometry">
       <rect>
-       <x>50</x>
+       <x>80</x>
        <y>90</y>
        <width>75</width>
        <height>23</height>
@@ -100,8 +100,8 @@
      <rect>
       <x>10</x>
       <y>140</y>
-      <width>201</width>
-      <height>271</height>
+      <width>221</width>
+      <height>341</height>
      </rect>
     </property>
     <property name="title">
@@ -112,7 +112,7 @@
       <rect>
        <x>10</x>
        <y>20</y>
-       <width>189</width>
+       <width>198</width>
        <height>31</height>
       </rect>
      </property>
@@ -145,8 +145,8 @@
       <rect>
        <x>10</x>
        <y>60</y>
-       <width>171</width>
-       <height>81</height>
+       <width>201</width>
+       <height>111</height>
       </rect>
      </property>
      <property name="title">
@@ -158,10 +158,17 @@
         <x>10</x>
         <y>20</y>
         <width>161</width>
-        <height>51</height>
+        <height>81</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QRadioButton" name="rbMotorLeftOff">
+         <property name="text">
+          <string>Left Off</string>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QRadioButton" name="rbMotorLeftForward">
          <property name="text">
@@ -183,9 +190,9 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>150</y>
-       <width>171</width>
-       <height>81</height>
+       <y>190</y>
+       <width>201</width>
+       <height>111</height>
       </rect>
      </property>
      <property name="title">
@@ -197,10 +204,17 @@
         <x>10</x>
         <y>20</y>
         <width>160</width>
-        <height>51</height>
+        <height>81</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QRadioButton" name="rbMotorRightOff">
+         <property name="text">
+          <string>Right Off</string>
+         </property>
+        </widget>
+       </item>
        <item>
         <widget class="QRadioButton" name="rbMotorRightForward">
          <property name="text">
@@ -221,8 +235,8 @@
     <widget class="QPushButton" name="bnMotorUpdate">
      <property name="geometry">
       <rect>
-       <x>50</x>
-       <y>240</y>
+       <x>70</x>
+       <y>310</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -235,14 +249,14 @@
    <widget class="QGroupBox" name="gbPlatformResponse">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>260</x>
       <y>10</y>
       <width>371</width>
       <height>211</height>
      </rect>
     </property>
     <property name="title">
-     <string>Platform Response</string>
+     <string>Platform Communication</string>
     </property>
     <widget class="QPlainTextEdit" name="pteResponse">
      <property name="enabled">
@@ -277,7 +291,7 @@
    <widget class="QGroupBox" name="gbSync">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>270</x>
       <y>240</y>
       <width>361</width>
       <height>111</height>
@@ -297,7 +311,7 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
-       <widget class="QLineEdit" name="lineEdit"/>
+       <widget class="QLineEdit" name="etEcho"/>
       </item>
       <item>
        <widget class="QPushButton" name="bnEcho">
@@ -313,7 +327,7 @@
       <rect>
        <x>90</x>
        <y>70</y>
-       <width>161</width>
+       <width>178</width>
        <height>31</height>
       </rect>
      </property>
@@ -335,16 +349,66 @@
      </layout>
     </widget>
    </widget>
+   <widget class="QGroupBox" name="gbSerialPort">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>390</y>
+      <width>361</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Serial Port</string>
+    </property>
+    <widget class="QPushButton" name="bnOpen">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>20</y>
+       <width>99</width>
+       <height>27</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Open</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="cbPortName">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>69</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>603</width>
+     <width>642</width>
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <addaction name="actionSerial_Settings"/>
+   </widget>
+   <widget class="QMenu" name="menuDTMF">
+    <property name="title">
+     <string>DSP</string>
+    </property>
+    <addaction name="actionConsole"/>
+   </widget>
+   <addaction name="menuSettings"/>
+   <addaction name="menuDTMF"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -355,6 +419,21 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionSerial_Settings">
+   <property name="text">
+    <string>Serial Settings</string>
+   </property>
+  </action>
+  <action name="actionDTMFConsole">
+   <property name="text">
+    <string>DTMF Console</string>
+   </property>
+  </action>
+  <action name="actionConsole">
+   <property name="text">
+    <string>Console</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
